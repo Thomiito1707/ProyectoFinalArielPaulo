@@ -17,6 +17,7 @@ protected:
     int stock;
 
 public:
+//Constructor con validaciones
     Vehiculo(int i, string ma, string mo, int anio, string col, double p, int s) {
         if (p <= 0) throw "Precio invalido";
         if (s < 0) throw "Stock invalido";
@@ -26,7 +27,7 @@ public:
     }
     //Destructor virtual
     virtual ~Vehiculo() {}
-
+    // Getters 
     int getId() { return id; }
     string getMarca() { return marca; }
     double getPrecio() { return precio; }
@@ -36,6 +37,7 @@ public:
 //Mostrar detalles con metodo virtual
     virtual void mostrar() = 0;
 };
+// Motores 
 //Clase base
 class MotorGasolina {
 protected:
@@ -68,6 +70,7 @@ public:
 };
 
 //Herencias
+// Auto a gasolina (herencia multiple)
 class AutoGasolina : public Vehiculo, public MotorGasolina {
 public:
     AutoGasolina(int i, string ma, string mo, int anio, string col, double p, int s, double c, double cap, string tipo, double cons, int num)
@@ -77,17 +80,18 @@ public:
         cout << "[Gasolina] " << marca << " " << modelo << " (" << anioFabricacion << ") - Color: " << color << " | $" << precio << " | Stock: " << stock << endl;
     }
 };
-
+// Auto eléctrico
 class AutoElectrico : public Vehiculo, public MotorElectrico {
 public:
     AutoElectrico(int i, string ma, string mo, int anio, string col, double p, int s, double a, double capBat, double tiempoC, double pot, bool rapida)
         : Vehiculo(i,ma,mo,anio,col,p,s), MotorElectrico(a, capBat, tiempoC, pot, rapida) {}
-
+//Polimorfismo 
     void mostrar() override {
         cout << "[Electrico] " << marca << " " << modelo << " (" << anioFabricacion << ") - Color: " << color << " | $" << precio << " | Stock: " << stock << endl;
     }
 };
-//Concepto de herencia multiple
+
+//Auto hibrido (Concepto de herencia multiple)
 class AutoHibrido : public Vehiculo, public MotorGasolina, public MotorElectrico {
 public:
     AutoHibrido(int i, string ma, string mo, int anio, string col, double p, int s, double c, double cap, string tipo, double cons, int num, double a, double capBat, double tiempoC, double pot, bool rapida)
@@ -97,7 +101,7 @@ public:
         cout << "[Hibrido] " << marca << " " << modelo << " (" << anioFabricacion << ") - Color: " << color << " | $" << precio << " | Stock: " << stock << endl;
     }
 };
-//Clase Cliente, Vendedor y venta (Control de negocios)
+//Cliente 
 class Cliente {
 private:
     int id;
@@ -120,7 +124,7 @@ public:
     int getCompras() { return compras; }
     void comprar(double x) { compras++; totalGastado += x; }
 };
-
+// Vendedor 
 class Vendedor {
 private:
     int id;
@@ -145,6 +149,7 @@ public:
         comisionGenerada += (x * 0.01); 
     }
 };
+// Venta 
 //Modulo:Gestion Transaccional por composicion
 class Venta {
 private:
@@ -165,7 +170,7 @@ public:
 };
 
 
-
+// Gestores 
 class GestorInv {
 private:
 //Composicion porque el vector administra una coleccion de objetos vehiculos.
@@ -248,7 +253,7 @@ public:
         return t;
     }
 };
-//Interracion con el usuario
+//Main 
 int main() {
     GestorInv inv;
     GestorC gc;
@@ -263,6 +268,7 @@ int main() {
 //Envolvemos en try para evitar colapsos
         try {
             switch(op) {
+                // Registrar carro 
             case 1: {
                 cout << "\n--- REGISTRAR CARRO ---\n";
                 int id, stock, tipo, anio;
@@ -293,6 +299,7 @@ int main() {
                 break;
             }
             case 2: {
+                
                 cout << "\n--- REGISTRAR CLIENTE ---\n";
                 int id; string ced, n, tel, correo;
                 cout << "ID: "; cin >> id;
