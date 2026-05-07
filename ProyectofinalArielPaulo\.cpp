@@ -60,6 +60,7 @@ public:
     }
 
     virtual void mostrar() = 0;
+    
 };
 
 // ===================== MOTOR GASOLINA =====================
@@ -190,6 +191,7 @@ public:
         cout << "\nPrecio: $" << precio;
         cout << "\nStock: " << stock << endl;
     }
+    
 };
 
 // ===================== CLIENTE =====================
